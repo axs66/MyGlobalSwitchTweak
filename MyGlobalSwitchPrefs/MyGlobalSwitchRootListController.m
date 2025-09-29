@@ -48,7 +48,7 @@
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
     NSString *key = [specifier propertyForKey:@"key"];
     CFStringRef appID = CFSTR(MGSTPrefsDomain);
-    CFPreferencesSetAppValue((__bridge CFStringRef)key, (__bridge CFPropertyRef)value, appID);
+    CFPreferencesSetAppValue((__bridge CFStringRef)key, (__bridge CFPropertyListRef)value, appID);
     CFPreferencesAppSynchronize(appID);
     CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR(MGSTPrefsChangedNotification), NULL, NULL, true);
 }
