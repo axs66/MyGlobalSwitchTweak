@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build.yml'  # 监控 build.yml 文件的变化
+      - '**.xm'  # 增加对 Tweak.xm 文件的监控
+      - 'control'
+    branches:
+      - 'main'  # 仅在推送到 main 分支时触发
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Check cache
+        run: |
+          echo upstream_heads=theos_version_commit-sdks_version_commit >> $GITHUB_ENV
+
+      - name: Use cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/theos
+          key: ${{ runner.os }}-theos-sdk-version
+
+      - name: Prepare Theos
+        uses: axs66/theos-action@main
+
+      - name: Install iOS SDK (with PrivateFrameworks)
+        run: |
+          set -e
+          mkdir -p "$GITHUB_WORKSPACE/theos/sdks"
+          cd "$GITHUB_WORKSPACE/theos/sdks"
+          SDK_FILE=iPhoneOS16.0.sdk.tar.xz
+          if [ ! -d "iPhoneOS16.0.sdk" ]; then
+            echo "Downloading iPhoneOS16.0 SDK..."
+            curl -L -o "$SDK_FILE" \
+              https://github.com/theos/sdks/releases/download/ios-16.0/iPhoneOS16.0.sdk.tar.xz \
+              || curl -L -o "$SDK_FILE" https://github.com/theos/sdks/releases/download/ios-16.4/iPhoneOS16.4.sdk.tar.xz \
+              || curl -L -o "$SDK_FILE" https://github.com/theos/sdks/releases/download/ios-16.5/iPhoneOS16.5.sdk.tar.xz
+            tar -xJf "$SDK_FILE" || true
+            # If we downloaded a different version, extract name may differ; normalize to 16.0 path if needed
+            for D in iPhoneOS16.*.sdk; do
+              if [ -d "$D" ] && [ "$D" != "iPhoneOS16.0.sdk" ]; then
+                ln -snf "$D" iPhoneOS16.0.sdk
+              fi
+            done
+          fi
+          ls -la
+
+      - name: Build package
+        run: |
+          pwd
+          ls -la
+          ls -la Preferences/
+          rm -f ${{ github.workspace }}/packages/*.deb
+          make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide
+
+      - name: List generated Deb packages
+        run: ls ${{ github.workspace }}/packages
+
+      - name: Create GitHub Release
+        id: release
+        run: |
+          VERSION=$(date +v%Y%m%d%H%M)
+          gh release create $VERSION ${{ github.workspace }}/packages/*.deb --title "MyGlobalSwitchTweak $VERSION" --notes "Automated release of .deb files"
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+
+      - name: Upload specific Deb packages
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: MyGlobalSwitchTweak
+          path: ${{ github.workspace }}/packages/*.deb
