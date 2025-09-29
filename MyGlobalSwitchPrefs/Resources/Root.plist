@@ -24,7 +24,7 @@
       <key>label</key>
       <string>Enable</string>
       <key>PostDarwinNotification</key>
-      <string>com.example.myglobalswitch/ReloadPrefs</string>
+      <string>com.axs.myglobalswitch/ReloadPrefs</string>
     </dict>
   </array>
   <key>title</key>
