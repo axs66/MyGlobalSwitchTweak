@@ -1,0 +1,10 @@
+Package: com.axs.myglobalswitch
+Name: MyGlobalSwitchTweak
+Version: 1.0.0
+Section: Tweaks
+Priority: optional
+Architecture: iphoneos-arm
+Depends: mobilesubstrate, preferenceloader
+Maintainer: Axs
+Author: Axs
+Description: iOS 16 tweak with global enable switch in Settings
