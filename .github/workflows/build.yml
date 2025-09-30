@@ -22,7 +22,8 @@ jobs:
 
       - name: Download Preferences.framework headers
         run: |
-          git clone https://github.com/axs66/Preferences.framework.git $(THEOS)/include/Preferences.framework
+          mkdir -p ${{ github.workspace }}/theos/include
+          git clone https://github.com/axs66/Preferences.framework.git ${{ github.workspace }}/theos/include/Preferences.framework
 
       - name: Build package
         run: |
