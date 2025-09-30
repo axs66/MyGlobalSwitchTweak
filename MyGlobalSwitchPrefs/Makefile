@@ -10,7 +10,7 @@ MyGlobalSwitchPrefs_FILES = MyGlobalSwitchRootListController.m
 MyGlobalSwitchPrefs_FRAMEWORKS = UIKit Foundation
 MyGlobalSwitchPrefs_PRIVATE_FRAMEWORKS = Preferences
 MyGlobalSwitchPrefs_INSTALL_PATH = /Library/PreferenceBundles
-MyGlobalSwitchPrefs_CFLAGS = -fobjc-arc
+MyGlobalSwitchPrefs_CFLAGS = -fobjc-arc -I$(THEOS)/include/Preferences.framework
 SDKROOT = $(THEOS)/sdks/iPhoneOS14.5.sdk
 MyGlobalSwitchPrefs_LDFLAGS = -L$(SDKROOT)/usr/lib -F$(SDKROOT)/System/Library/PrivateFrameworks -lobjc
 
