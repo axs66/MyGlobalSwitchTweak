@@ -26,8 +26,8 @@ static void preferencesChanged(CFNotificationCenterRef center, void *observer, C
         // Only affect Preferences app (bundle id: com.apple.Preferences)
         NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
         if ([bundleId isEqualToString:@"com.apple.Preferences"]) {
-            if (text.length > 0 && ![text hasPrefix:@"🔧 "]) {
-                text = [@"🔧 " stringByAppendingString:text];
+            if (text.length > 0 && ![text hasPrefix:@"💞 "]) {
+                text = [@"🎈 " stringByAppendingString:text];
             }
         }
     }
