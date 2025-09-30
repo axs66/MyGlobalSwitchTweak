@@ -7,12 +7,12 @@ include $(THEOS)/makefiles/common.mk
 BUNDLE_NAME = MyGlobalSwitchPrefs
 
 MyGlobalSwitchPrefs_FILES = MyGlobalSwitchRootListController.m
-MyGlobalSwitchPrefs_FRAMEWORKS = UIKit Foundation
+MyGlobalSwitchPrefs_FRAMEWORKS = UIKit Foundation CoreFoundation
 MyGlobalSwitchPrefs_PRIVATE_FRAMEWORKS = Preferences
 MyGlobalSwitchPrefs_INSTALL_PATH = /Library/PreferenceBundles
 MyGlobalSwitchPrefs_CFLAGS = -fobjc-arc -I$(THEOS)/include/Preferences.framework -I$(THEOS_PROJECT_DIR)/theos/include/Preferences.framework
 SDKROOT = $(THEOS)/sdks/iPhoneOS14.5.sdk
-MyGlobalSwitchPrefs_LDFLAGS = -L$(SDKROOT)/usr/lib -F$(SDKROOT)/System/Library/PrivateFrameworks -lobjc
+MyGlobalSwitchPrefs_LDFLAGS = -L$(SDKROOT)/usr/lib -F$(SDKROOT)/System/Library/PrivateFrameworks
 
 
 include $(THEOS_MAKE_PATH)/bundle.mk
