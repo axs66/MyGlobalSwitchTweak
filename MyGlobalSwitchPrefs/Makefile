@@ -5,7 +5,7 @@ MyGlobalSwitchPrefs_FILES = MyGlobalSwitchRootListController.m
 MyGlobalSwitchPrefs_INSTALL_PATH = /Library/PreferenceBundles
 MyGlobalSwitchPrefs_FRAMEWORKS = UIKit
 MyGlobalSwitchPrefs_PRIVATE_FRAMEWORKS = Preferences
-MyGlobalSwitchPrefs_CFLAGS = -fobjc-arc
+MyGlobalSwitchPrefs_CFLAGS = -fobjc-arc -F/System/Library/PrivateFrameworks
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 
