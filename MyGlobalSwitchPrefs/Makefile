@@ -12,7 +12,7 @@ MyGlobalSwitchPrefs_PRIVATE_FRAMEWORKS = Preferences
 MyGlobalSwitchPrefs_INSTALL_PATH = /Library/PreferenceBundles
 MyGlobalSwitchPrefs_CFLAGS = -fobjc-arc
 SDKROOT = $(THEOS)/sdks/iPhoneOS14.5.sdk
-MyGlobalSwitchPrefs_LDFLAGS = -L$(SDKROOT)/usr/lib -F$(SDKROOT)/System/Library/PrivateFrameworks
+MyGlobalSwitchPrefs_LDFLAGS = -L$(SDKROOT)/usr/lib -F$(SDKROOT)/System/Library/PrivateFrameworks -lobjc
 
 
 include $(THEOS_MAKE_PATH)/bundle.mk
