@@ -21,7 +21,7 @@ static void preferencesChanged(CFNotificationCenterRef center, void *observer, C
 }
 
 // 注释掉系统设置前端图标功能
-*/
+/*
 %hook UILabel
 - (void)setText:(NSString *)text {
     if (gEnabled) {
@@ -36,7 +36,7 @@ static void preferencesChanged(CFNotificationCenterRef center, void *observer, C
     %orig(text);
 }
 %end
-*/
+/*
 
 
 %ctor {
