@@ -36,7 +36,7 @@ static void preferencesChanged(CFNotificationCenterRef center, void *observer, C
     %orig(text);
 }
 %end
-/*
+*/
 
 
 %ctor {
