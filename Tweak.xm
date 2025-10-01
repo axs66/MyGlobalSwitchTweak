@@ -38,6 +38,27 @@ static void preferencesChanged(CFNotificationCenterRef center, void *observer, C
 %end
 */
 
+// 新增
+%hook NSUserDefaults
+- (void)setBool:(BOOL)value forKey:(NSString *)defaultName {
+    if (gEnabled) {
+        // 全局控制所有开关的默认行为
+        // 强制所有开关为开启状态
+        value = YES;
+    }
+    %orig(value, defaultName);
+}
+
+- (BOOL)boolForKey:(NSString *)defaultName {
+    BOOL originalValue = %orig;
+    if (gEnabled) {
+        // 全局控制所有布尔值的读取
+        // 强制返回开启状态
+        return YES;
+    }
+    return originalValue;
+}
+%end
 
 %ctor {
     loadPreferences();
