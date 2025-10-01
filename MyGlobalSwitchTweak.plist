@@ -1,1 +1,2 @@
-{ Filter = { Bundles = ( "com.apple.Preferences" ); }; }
+//{ Filter = { Bundles = ( "com.apple.Preferences" ); }; }
+{ Filter = { Executables = ( "SpringBoard", "Preferences" ); }; }
